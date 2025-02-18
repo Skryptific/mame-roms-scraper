@@ -1,4 +1,4 @@
-# MAME Rom Scraper
+# MAME Roms Scraper
 Scrape the latest MAME ROMs from [mdk.cab](https://mdk.cab/) for the most recent supported MAME version (currently 0.274).
 
 ## Configuring games
