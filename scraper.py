@@ -8,6 +8,7 @@ def read_game_names(filename):
 
 base_url = 'https://mdk.cab/download/'
 roms_dir = 'roms'
+mame_roms_dir = r'C:\Arcade\MAME\roms'
 
 os.makedirs(roms_dir, exist_ok=True)
 
@@ -58,7 +59,6 @@ def download_rom(game_name, url, split):
     else:
         num_failed += 1
         failed_games.append(game_name)
-
         print(f'\033[91mFailed to download {game_name}: status {response.status_code}.\033[0m')
         return False
 
@@ -68,7 +68,13 @@ def attempt_download(game_name):
     if os.path.exists(os.path.join(roms_dir, f'{game_name}.zip')) or os.path.exists(os.path.join(roms_dir, f'{game_name}.7z')):
         num_warnings += 1
 
-        print(f'\033[93mFile {game_name} already exists, skipping download.\033[0m')
+        print(f'\033[93mFile {game_name} already exists in {roms_dir}, skipping download.\033[0m')
+        return
+    
+    if os.path.exists(os.path.join(mame_roms_dir, f'{game_name}.zip')) or os.path.exists(os.path.join(mame_roms_dir, f'{game_name}.7z')):
+        num_warnings += 1
+
+        print(f'\033[93mFile {game_name} already exists in {mame_roms_dir}, skipping download.\033[0m')
         return
     
     if download_rom(game_name, f'{base_url}/rom/{game_name}', False):
